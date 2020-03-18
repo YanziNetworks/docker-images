@@ -7,6 +7,6 @@ IMG=$(basename "$(dirname "$DOCKER_REPO")")/alpine
 for tag in $(alltags "$IMG"); do
     if [ -n "$tag" ]; then
         echo "============== Building ${DOCKER_REPO}:$tag"
-        docker build --build-arg SRCTAG=$tag -t ${DOCKER_REPO}:$tag .
+        docker build --build-arg SRCTAG="$tag" -t "${DOCKER_REPO}:$tag" .
     fi
 done
