@@ -3,7 +3,7 @@
 # shellcheck disable=SC1090
 . "$(dirname "$0")/alltags.sh"
 
-IMG=$(dirname "$DOCKER_REPO")/alpine
+IMG=$(basename "$(dirname "$DOCKER_REPO")")/alpine
 for tag in $(alltags "$IMG"); do
     if [ -n "$tag" ]; then
         echo "============== Building ${DOCKER_REPO}:$tag"
