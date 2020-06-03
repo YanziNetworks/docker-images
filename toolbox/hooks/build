@@ -1,11 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
+im="alpine"
+MINVER=${MINVER:-3.6}
 
 # shellcheck disable=SC1090
-. "$(dirname "$0")/alltags.sh"
+. "$(dirname "$0")/reg-tags/image_tags.sh"
 
-IMG=$(basename "$(dirname "$DOCKER_REPO")")/alpine
-for tag in $(alltags "$IMG"); do
-    if [ -n "$tag" ]; then
+
+for tag in $(img_newtags --filter '[0-9]+(\.[0-9]+)+$' --verbose -- "$im" "$(img_unqualify "$DOCKER_REPO")"); do
+    if [ "$(img_version "$tag")" -ge "$(img_version "$MINVER")" ]; then
         echo "============== Building ${DOCKER_REPO}:$tag"
         docker build --build-arg SRCTAG="$tag" -t "${DOCKER_REPO}:$tag" .
     fi

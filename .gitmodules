@@ -1,0 +1,3 @@
+[submodule "toolbox/hooks/reg-tags"]
+	path = toolbox/hooks/reg-tags
+	url = https://github.com/efrecon/reg-tags
