@@ -1,6 +1,10 @@
 ARG SRCTAG=latest
 FROM yanzinetworks/alpine:${SRCTAG}
 
+# List of packages to add on top of raw Alpine offering. We strive to keep this
+# list minimal.
+ARG PKGS="curl bind-tools netcat-openbsd jq rsync"
+
 # OCI Annotation: https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL org.opencontainers.image.title="toolbox"
 LABEL org.opencontainers.image.description="glibc-capable Alpine with a minimal set of essential utilities"
@@ -13,5 +17,4 @@ LABEL org.opencontainers.image.created="$BUILD_DATE"
 LABEL org.opencontainers.image.vendor="Yanzi Networks AB"
 LABEL org.opencontainers.image.licenses="MIT"
 
-RUN apk --no-cache add \
-        curl bind-tools netcat-openbsd jq rsync
+RUN apk --no-cache add ${PKGS}
